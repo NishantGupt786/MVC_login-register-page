@@ -23,7 +23,7 @@ app.use(express.static('public'))
 app.use(session({
     secret: "My secret",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false
 }))
 
 app.use(passport.initialize())
