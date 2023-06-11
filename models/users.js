@@ -2,16 +2,8 @@ const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
 
 const MVCuserSchema = new mongoose.Schema({
-    username:{
-        type: String,
-        required: true
-    },
-    mobilenum:{
-        type: String
-    },
-    password:{
-        type: String
-    }
+    email: String,
+    password:String
 })
 
 MVCuserSchema.plugin(passportLocalMongoose)

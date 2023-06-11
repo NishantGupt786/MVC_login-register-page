@@ -3,8 +3,6 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require("body-parser")
 const session = require('express-session')
 const passport = require('passport')
-const passportLocalMongoose = require('passport-local-mongoose')
-const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose')
 const app = express()
 
@@ -29,15 +27,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-const User = require('./models/users');
-
-passport.use(new LocalStrategy(User.authenticate()));
-
-// use static serialize and deserialize of model for passport session support
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-
 main().catch(err => console.log(err));
 
 async function main() {
@@ -45,6 +34,14 @@ async function main() {
   
     // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
+
+
+const User = require('./models/users');
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter)
 app.use('/', loginRouter)

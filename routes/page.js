@@ -7,7 +7,7 @@ router.get('/page',(req,res)=>{
         res.render("final")
     }
     else{
-        res.redirect('login')
+        res.redirect('/login')
     }
 })
 
